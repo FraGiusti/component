@@ -6,7 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "product")
 public class ProductEntity {
-    @Column(name ="id")
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name ="product_name")
