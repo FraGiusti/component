@@ -1,4 +1,4 @@
-package fra.giusti.job.component.entity;
+package fra.giusti.job.component.model.entity;
 
 import javax.persistence.*;
 import java.util.Objects;
