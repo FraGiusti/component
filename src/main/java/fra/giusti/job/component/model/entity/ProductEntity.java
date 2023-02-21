@@ -55,7 +55,7 @@ public class ProductEntity {
         return price;
     }
 
-    public ProductEntity id(Long id) {
+    public ProductEntity id() {
         this.id = id;
         return this;
     }

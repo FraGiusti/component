@@ -62,4 +62,18 @@ public class ProductDomain {
         this.price = price;
         return this;
     }
+    public ProductDomain id(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDomain{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

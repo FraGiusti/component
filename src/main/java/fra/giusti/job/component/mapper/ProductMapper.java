@@ -12,6 +12,7 @@ public class ProductMapper {
 
     public static ProductDomain map(ProductRequest dto) {
         return new ProductDomain()
+
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .price(dto.getPrice());
@@ -19,6 +20,7 @@ public class ProductMapper {
 
     public static ProductDomain toDomain(ProductEntity entity) {
         return new ProductDomain()
+               .id(entity.getId())
                 .name(entity.getName())
                 .description(entity.getDescription())
                 .price(entity.getPrice());
@@ -34,6 +36,7 @@ public class ProductMapper {
 
     public static Product toDto(ProductDomain domain) {
         return new Product()
+               .id(domain.getId())
                 .name(domain.getName())
                 .description(domain.getDescription())
                 .price(domain.getPrice());
