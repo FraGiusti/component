@@ -2,14 +2,11 @@ package fra.giusti.job.component.service;
 
 import fra.giusti.job.component.model.entity.ProductEntity;
 import fra.giusti.job.component.repository.ProductRepository;
-import fra.giusti.job.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
