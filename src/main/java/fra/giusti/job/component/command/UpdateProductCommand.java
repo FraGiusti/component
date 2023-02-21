@@ -3,11 +3,14 @@ package fra.giusti.job.component.command;
 import fra.giusti.job.component.library.BaseCommand;
 import fra.giusti.job.component.model.domain.ProductDomain;
 import fra.giusti.job.component.model.domain.ProductResponse;
+import fra.giusti.job.component.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class UpdateProductCommand  extends BaseCommand<ProductDomain, ProductResponse> {
+public class UpdateProductCommand  extends BaseCommand<ProductDomain, ProductDomain> {
+    @Autowired
+    ProductService productService;
 
-    public ProductResponse execute(ProductDomain map) {
-        //TODO: invoke related service method
-        return new ProductResponse();
+    public ProductDomain execute(ProductDomain map) {
+        return productService.update(map);
     }
 }

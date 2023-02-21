@@ -35,17 +35,21 @@ public class ProductController implements ProductApi {
         Product dto = ProductMapper.map(newProduct);
         return ResponseEntity.ok(dto);
     }
+
     @Override
     public ResponseEntity<ProductList> getProductByFilter(Long id) {
+        List<ProductDomain> productDomains = getProductByFilterCommand.execute(id);
         //invoke command execute
-        List<Product> products = getProductByFilterCommand.execute(id);
+        List<Product> products = ProductMapper.toDtoList(productDomains);
         // map to response - return response Entity
-         return ResponseEntity.ok(ProductMapper.map(products));
-
+        ProductList productList = new ProductList()
+                .products(products);
+        return ResponseEntity.ok(productList);
     }
 
     @Override
     public ResponseEntity<Product> updateProduct(ProductRequest request) {
-        return ResponseEntity.ok(ProductMapper.map(updateProductCommand.execute(ProductMapper.map(request))));
+        ProductDomain domain = updateProductCommand.execute(ProductMapper.map(request));
+        return ResponseEntity.ok(ProductMapper.toDto(domain));
     }
 }

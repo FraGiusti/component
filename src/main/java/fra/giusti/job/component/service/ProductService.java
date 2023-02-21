@@ -1,13 +1,17 @@
 package fra.giusti.job.component.service;
 
+import fra.giusti.job.component.mapper.ProductMapper;
+import fra.giusti.job.component.model.domain.ProductDomain;
+import fra.giusti.job.component.model.domain.ProductResponse;
 import fra.giusti.job.component.model.entity.ProductEntity;
 import fra.giusti.job.component.repository.ProductRepository;
+import fra.giusti.job.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -19,7 +23,7 @@ public class ProductService {
         return productRepository.saveAndFlush(product);
     }
 
-    public ProductEntity update(ProductEntity product) {
+    public ProductDomain update(ProductDomain product) {
         Optional<ProductEntity> toUpdate = productRepository.findById(product.getId());
         if (toUpdate.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
@@ -29,21 +33,19 @@ public class ProductService {
                     .name(product.getName())
                     .description(product.getDescription())
                     .price(product.getPrice());
-            return productEntity;
+            return ProductMapper.toDomain(productEntity);
         }
     }
 
+    public List<ProductDomain> getByFilter(Long id) {
+        List<ProductEntity> productEntities = id == null ? productRepository.findAll() : Collections.singletonList(findById(id));
 
-
-
-
-    //public Cliente findById(Long id) {
-    //		Optional<Cliente> find = clienteRepository.findById(id);
-    //		if (find.isPresent()) {
-    //			return find.get();
-    //		} else {
-    //			throw new ClienteException("Nessun cliente con questo id");
-    //		}
+        return ProductMapper.map(productEntities);
+    }
+    private ProductEntity findById(Long id) {
+        return Optional.of(productRepository.getReferenceById(id))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found"));
+    }
 
 
 }
