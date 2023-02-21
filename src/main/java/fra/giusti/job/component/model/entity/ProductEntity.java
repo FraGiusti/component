@@ -9,11 +9,11 @@ public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name ="product_name")
+    @Column(name = "product_name")
     private String name;
-    @Column(name ="description")
+    @Column(name = "description")
     private String description;
-    @Column(name ="price")
+    @Column(name = "price")
     private Double price;
 
     public ProductEntity(Long id, String name, String description, Double price) {
@@ -21,6 +21,9 @@ public class ProductEntity {
         this.name = name;
         this.description = description;
         this.price = price;
+    }
+
+    public ProductEntity() {
     }
 
     @Override

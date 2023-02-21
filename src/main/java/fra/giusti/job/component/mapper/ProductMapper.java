@@ -1,9 +1,13 @@
 package fra.giusti.job.component.mapper;
 
+import fra.giusti.job.component.command.GetProductByFilterCommand;
 import fra.giusti.job.component.model.domain.ProductDomain;
 import fra.giusti.job.component.model.domain.ProductResponse;
 import fra.giusti.job.model.Product;
+import fra.giusti.job.model.ProductList;
 import fra.giusti.job.model.ProductRequest;
+
+import java.util.List;
 
 public class ProductMapper {
 
@@ -19,5 +23,11 @@ public class ProductMapper {
                 .name(domain.getName())
                 .description(domain.getDescription())
                 .price(domain.getPrice());
+    }
+
+
+    public static ProductList map(List<Product>products) {
+        return new ProductList()
+                .products(products);
     }
 }
