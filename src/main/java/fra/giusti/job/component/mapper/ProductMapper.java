@@ -4,7 +4,6 @@ import fra.giusti.job.component.model.domain.ProductDomain;
 import fra.giusti.job.component.model.domain.ProductResponse;
 import fra.giusti.job.component.model.entity.ProductEntity;
 import fra.giusti.job.model.Product;
-import fra.giusti.job.model.ProductList;
 import fra.giusti.job.model.ProductRequest;
 
 import java.util.List;
@@ -47,5 +46,17 @@ public class ProductMapper {
                 .description(domain.getDescription())
                 .price(domain.getPrice());
     }
+    public static List<ProductDomain> map(List<ProductEntity> productEntities) {
+        return productEntities.stream()
+                .map(ProductMapper::toDomain)
+                .collect(Collectors.toList());
+    }
 
+
+    public static ProductEntity map(ProductDomain domain) {
+        return new ProductEntity()
+                .name(domain.getName())
+                .description(domain.getDescription())
+                .price(domain.getPrice());
+    }
 }

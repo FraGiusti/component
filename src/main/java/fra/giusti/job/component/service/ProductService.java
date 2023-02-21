@@ -2,16 +2,16 @@ package fra.giusti.job.component.service;
 
 import fra.giusti.job.component.mapper.ProductMapper;
 import fra.giusti.job.component.model.domain.ProductDomain;
-import fra.giusti.job.component.model.domain.ProductResponse;
 import fra.giusti.job.component.model.entity.ProductEntity;
 import fra.giusti.job.component.repository.ProductRepository;
-import fra.giusti.job.model.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -19,8 +19,10 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
-    public ProductEntity saveAndFlush(ProductEntity product) {
-        return productRepository.saveAndFlush(product);
+    public ProductDomain saveAndFlush(ProductDomain product) {
+        ProductEntity entity = ProductMapper.map(product);
+
+        return ProductMapper.toDomain(productRepository.saveAndFlush(entity));
     }
 
     public ProductDomain update(ProductDomain product) {
@@ -42,6 +44,7 @@ public class ProductService {
 
         return ProductMapper.map(productEntities);
     }
+
     private ProductEntity findById(Long id) {
         return Optional.of(productRepository.getReferenceById(id))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found"));

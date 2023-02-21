@@ -1,12 +1,11 @@
 package fra.giusti.job.component.controller;
 
 import fra.giusti.job.api.ProductApi;
-import fra.giusti.job.component.command.CreateProductCommand;
-import fra.giusti.job.component.command.GetProductByFilterCommand;
-import fra.giusti.job.component.command.UpdateProductCommand;
+import fra.giusti.job.component.command.CreateCommand;
+import fra.giusti.job.component.command.GetByFilterCommand;
+import fra.giusti.job.component.command.UpdateCommand;
 import fra.giusti.job.component.mapper.ProductMapper;
 import fra.giusti.job.component.model.domain.ProductDomain;
-import fra.giusti.job.component.model.domain.ProductResponse;
 import fra.giusti.job.model.Product;
 import fra.giusti.job.model.ProductList;
 import fra.giusti.job.model.ProductRequest;
@@ -19,21 +18,20 @@ import java.util.List;
 @RestController
 public class ProductController implements ProductApi {
     @Autowired
-    CreateProductCommand createProductCommand;
+    CreateCommand createProductCommand;
     @Autowired
-    UpdateProductCommand updateProductCommand;
+    UpdateCommand updateProductCommand;
     @Autowired
-    GetProductByFilterCommand getProductByFilterCommand;
+    GetByFilterCommand getProductByFilterCommand;
 
     @Override
     public ResponseEntity<Product> createProduct(ProductRequest request) {
         //map requestDto to Domain
         ProductDomain productDomain = ProductMapper.map(request);
         //invoke execute to create a new product
-        ProductResponse newProduct = createProductCommand.execute(productDomain);
+        ProductDomain newProduct = createProductCommand.execute(productDomain);
         //map productDomain to Product Dto
-        Product dto = ProductMapper.map(newProduct);
-        return ResponseEntity.ok(dto);
+        return ResponseEntity.ok(ProductMapper.toDto(newProduct));
     }
 
     @Override
@@ -44,6 +42,7 @@ public class ProductController implements ProductApi {
         // map to response - return response Entity
         ProductList productList = new ProductList()
                 .products(products);
+
         return ResponseEntity.ok(productList);
     }
 
