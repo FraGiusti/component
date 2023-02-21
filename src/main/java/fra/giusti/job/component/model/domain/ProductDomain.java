@@ -3,6 +3,13 @@ package fra.giusti.job.component.model.domain;
 import java.util.Objects;
 
 public class ProductDomain {
+
+    private Long id;
+
+    public Long getId() {
+        return id;
+    }
+
     private String name;
     private String description;
     private Double price;
