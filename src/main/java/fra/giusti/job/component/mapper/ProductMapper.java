@@ -1,7 +1,6 @@
 package fra.giusti.job.component.mapper;
 
 import fra.giusti.job.component.model.domain.ProductDomain;
-import fra.giusti.job.component.model.domain.ProductResponse;
 import fra.giusti.job.component.model.entity.ProductEntity;
 import fra.giusti.job.model.Product;
 import fra.giusti.job.model.ProductRequest;
@@ -16,13 +15,6 @@ public class ProductMapper {
                 .name(dto.getName())
                 .description(dto.getDescription())
                 .price(dto.getPrice());
-    }
-
-    public static Product map(ProductResponse response) {
-        return new Product()
-                .name(response.getName())
-                .description(response.getDescription())
-                .price(response.getPrice());
     }
 
     public static ProductDomain toDomain(ProductEntity entity) {
