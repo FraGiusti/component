@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -28,14 +30,12 @@ public class BaseTest {
                 .content(mapper.writeValueAsString(request));
     }
 
-    //TODO: prepareGetByFilterRequest
-
-    public MockHttpServletRequestBuilder prepareGetProductByFilter(Long id) throws JsonProcessingException {
-        String idParam = "";
+    public MockHttpServletRequestBuilder prepareGetProductByFilter(Long id) {
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         if (id != null)
-            idParam = String.valueOf(id);
+            params.add("id", String.valueOf(id));
 
         return get("/product/getByFilter")
-                .queryParam("id",idParam);
+                .params(params);
     }
 }
