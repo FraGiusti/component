@@ -31,7 +31,11 @@ public class BaseTest {
     //TODO: prepareGetByFilterRequest
 
     public MockHttpServletRequestBuilder prepareGetProductByFilter(Long id) throws JsonProcessingException {
+        String idParam = "";
+        if (id != null)
+            idParam = String.valueOf(id);
+
         return get("/product/getByFilter")
-                .param("id", String.valueOf(id));
+                .queryParam("id",idParam);
     }
 }

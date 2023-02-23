@@ -51,4 +51,15 @@ public class GetByFilterTest extends BaseTest {
 
     }
 
+    @Test
+    @DisplayName("Get By Filter Test With Id Null")
+    void GetByFilterTestWithIdNull() throws Exception {
+        String result = mockMvc.perform(prepareGetProductByFilter(null))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        System.out.println(result);
+    }
+
 }
