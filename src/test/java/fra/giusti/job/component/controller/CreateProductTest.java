@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+@DisplayName("Create product test")
 public class CreateProductTest extends BaseTest {
     @Autowired
     MockMvc mockMvc;
@@ -51,5 +51,31 @@ public class CreateProductTest extends BaseTest {
         assertEquals(expected.getName(), actual.getName());
         assertEquals(expected.getDescription(), actual.getDescription());
         assertEquals(expected.getPrice(), actual.getPrice());
+    }
+
+    @Test
+    @DisplayName("Given blank parameters then expect status is bad request")
+    void givenBlankParametersThenExpectStatusIsBadRequest() throws Exception {
+        var request = new ProductRequest()
+                .name("")
+                .description("")
+                .price(200.00);
+
+        mockMvc.perform(prepareCreateProductRequest(request))
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
+    @DisplayName("Given negative price then expect bad request")
+    void givenNegativePriceThenExpectBadRequest() throws Exception {
+        var request = new ProductRequest()
+                .name("Iphone 14 Pro Max")
+                .description("The best Iphone")
+                .price(-200.00);
+
+        mockMvc.perform(prepareCreateProductRequest(request))
+                .andExpect(status().isBadRequest());
+
     }
 }

@@ -25,4 +25,6 @@ public class BaseTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(request));
     }
+
+    //TODO: prepareGetByFilterRequest
 }
