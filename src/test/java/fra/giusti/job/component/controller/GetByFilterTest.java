@@ -22,7 +22,7 @@ public class GetByFilterTest extends BaseTest {
 
     @Test
     @DisplayName("Get by filter test ok")
-    void GetByFilterTestOk() throws Exception {
+    void getByFilterTestOk() throws Exception {
         ProductEntity productEntity= new ProductEntity(1L,"prodotto","descrizione", 20.00);
         productRepository.saveAndFlush(productEntity);
         Long id =1L;
@@ -38,7 +38,7 @@ public class GetByFilterTest extends BaseTest {
 
     @Test
     @DisplayName("Get By Filter Test Not Found Given Id Not Present In Db")
-    void GetByFilterTestNotFoundGivenIdNotPresentInDb() throws Exception {
+    void getByFilterTestNotFoundGivenIdNotPresentInDb() throws Exception {
         Long id =1L;
         String result = mockMvc.perform(prepareGetProductByFilter(id))
                 //IMPORTANT: verify the http status
@@ -53,7 +53,7 @@ public class GetByFilterTest extends BaseTest {
 
     @Test
     @DisplayName("Get By Filter Test With Id Null")
-    void GetByFilterTestWithIdNull() throws Exception {
+    void getByFilterTestWithIdNull() throws Exception {
         String result = mockMvc.perform(prepareGetProductByFilter(null))
                 .andExpect(status().isOk())
                 .andReturn()
