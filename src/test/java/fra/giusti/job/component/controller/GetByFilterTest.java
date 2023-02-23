@@ -34,6 +34,9 @@ public class GetByFilterTest extends BaseTest {
                 .getContentAsString();
 
         System.out.println(result);
+        //TODO: add assertions on the product found: every product parameter should be equal to the product expected
+        //TODO: hint look the CreateProduct test to see what is next
+
     }
 
     @Test
