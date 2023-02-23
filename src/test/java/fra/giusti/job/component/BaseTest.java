@@ -10,6 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
@@ -18,6 +19,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 public class BaseTest {
     @Autowired
     ObjectMapper mapper;
+
     //TEST DI INTEGRAZIONE
     public MockHttpServletRequestBuilder prepareCreateProductRequest(ProductRequest request) throws JsonProcessingException {
         return post("/product/create")
@@ -27,4 +29,9 @@ public class BaseTest {
     }
 
     //TODO: prepareGetByFilterRequest
+
+    public MockHttpServletRequestBuilder prepareGetProductByFilter(Long id) throws JsonProcessingException {
+        return get("/product/getByFilter")
+                .param("id", String.valueOf(id));
+    }
 }

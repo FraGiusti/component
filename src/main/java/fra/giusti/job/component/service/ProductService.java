@@ -65,7 +65,7 @@ public class ProductService {
 
     public List<ProductDomain> getByFilter(Long id) {
         List<ProductEntity> productEntities =
-                id == null ? productRepository.findAll() : Collections.singletonList(findById(id));
+                id == null ? findAll() : Collections.singletonList(findById(id));
 
         return ProductMapper.map(productEntities);
     }
@@ -75,5 +75,10 @@ public class ProductService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found"));
     }
 
+    private List<ProductEntity> findAll() {
+        return Optional.of(productRepository.findAll())
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found"));
 
+
+    }
 }
