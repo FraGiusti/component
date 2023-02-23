@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +20,7 @@ public class ProductService {
     @Autowired
     ProductRepository productRepository;
 
+    @Transactional
     public ProductDomain saveAndFlush(ProductDomain product) {
         ProductEntity entity = ProductMapper.map(product);
 
@@ -42,6 +44,7 @@ public class ProductService {
             }
         }
      */
+    @Transactional
     public ProductDomain update(ProductDomain product) {
 
         ProductEntity toUpdate = productRepository.findById(product.getId())
@@ -54,6 +57,8 @@ public class ProductService {
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice());
+
+        productRepository.saveAndFlush(updated);
 
         return ProductMapper.toDomain(updated);
     }

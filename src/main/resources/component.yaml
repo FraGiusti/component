@@ -5,8 +5,10 @@ info:
 tags:
   - name: Product
     description: Endpoints related to managing products
+servers:
+  - url: http://localhost:8080/api/v1/
 paths:
-  /product:
+  /product/create:
     post:
       summary: Create a new product
       operationId: createProduct
@@ -25,6 +27,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Product'
+  /product/update:
     put:
       summary: Update a product by ID
       operationId: updateProduct
@@ -53,7 +56,7 @@ paths:
                 $ref: '#/components/schemas/Product'
         '404':
           description: Not found
-  /product/filter:
+  /product/getByFilter:
     get:
       summary: List all products or filter by ID
       operationId: getProductByFilter
