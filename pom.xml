@@ -37,7 +37,6 @@
 
 		<dependency>
 			<groupId>com.h2database</groupId>
-			<version>1.4.193</version>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 			<version>1.4.193</version>

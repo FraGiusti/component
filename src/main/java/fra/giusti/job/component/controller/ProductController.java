@@ -45,11 +45,9 @@ public class ProductController implements ProductApi {
 
         return ResponseEntity.ok(productList);
     }
-
-
-    public ResponseEntity<Product> updateProduct(ProductRequest request) {
-        ProductDomain domain = updateProductCommand.execute(ProductMapper.map(request));
+    @Override
+    public ResponseEntity<Product> updateProduct(Long id , ProductRequest request) {
+        ProductDomain domain = updateProductCommand.execute(ProductMapper.map(id,request));
         return ResponseEntity.ok(ProductMapper.toDto(domain));
-
     }
 }

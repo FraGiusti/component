@@ -25,22 +25,42 @@ public class ProductService {
         return ProductMapper.toDomain(productRepository.saveAndFlush(entity));
     }
 
-    public ProductDomain update(ProductDomain product) {
-        Optional<ProductEntity> toUpdate = productRepository.findById(product.getId());
-        if (toUpdate.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
-        else {
-            ProductEntity productEntity = toUpdate.get();
-            productEntity
-                    .name(product.getName())
-                    .description(product.getDescription())
-                    .price(product.getPrice());
-            return ProductMapper.toDomain(productEntity);
+    /*
+
+        public ProductDomain update(ProductDomain product) {
+            Optional<ProductEntity> toUpdate = productRepository.findById(product.getId());
+
+            if (toUpdate.isEmpty())
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found");
+            else {
+                ProductEntity productEntity = toUpdate.get();
+                productEntity
+                        .name(product.getName())
+                        .description(product.getDescription())
+                        .price(product.getPrice());
+                return ProductMapper.toDomain(productEntity);
+            }
         }
+     */
+    public ProductDomain update(ProductDomain product) {
+
+        ProductEntity toUpdate = productRepository.findById(product.getId())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        String.format("Product with id %s not found in database ", product.getId()))
+                );
+
+        ProductEntity updated = toUpdate
+                .name(product.getName())
+                .description(product.getDescription())
+                .price(product.getPrice());
+
+        return ProductMapper.toDomain(updated);
     }
 
     public List<ProductDomain> getByFilter(Long id) {
-        List<ProductEntity> productEntities = id == null ? productRepository.findAll() : Collections.singletonList(findById(id));
+        List<ProductEntity> productEntities =
+                id == null ? productRepository.findAll() : Collections.singletonList(findById(id));
 
         return ProductMapper.map(productEntities);
     }
