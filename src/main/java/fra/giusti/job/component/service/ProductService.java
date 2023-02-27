@@ -12,7 +12,6 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -71,14 +70,10 @@ public class ProductService {
     }
 
     private ProductEntity findById(Long id) {
-        return Optional.of(productRepository.getReferenceById(id))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found"));
+        return productRepository.getReferenceById(id);
     }
 
     private List<ProductEntity> findAll() {
-        return Optional.of(productRepository.findAll())
-                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found"));
-
-
+        return productRepository.findAll();
     }
 }
