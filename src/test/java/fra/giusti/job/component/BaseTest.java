@@ -12,8 +12,7 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -37,5 +36,13 @@ public class BaseTest {
 
         return get("/product/getByFilter")
                 .params(params);
+    }
+
+    public MockHttpServletRequestBuilder prepareUpdateProductRequest(Long id, ProductRequest request) throws JsonProcessingException {
+        return put("/product/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .param("id",String.valueOf(id))
+                .content(mapper.writeValueAsString(request));
     }
 }

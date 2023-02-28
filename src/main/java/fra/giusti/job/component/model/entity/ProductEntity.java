@@ -26,18 +26,6 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProductEntity)) return false;
-        ProductEntity that = (ProductEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(price, that.price);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, description, price);
-    }
 
     public Long getId() {
         return id;
@@ -53,11 +41,6 @@ public class ProductEntity {
 
     public Double getPrice() {
         return price;
-    }
-
-    public ProductEntity id() {
-        this.id = id;
-        return this;
     }
 
     public ProductEntity name(String name) {
